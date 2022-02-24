@@ -1,0 +1,51 @@
+//Author - Miguel Kirsch
+//buttons 1-4 all print colors in accordance with the button
+// keybinds in the fight game guilty gear strive (punch, kick, slash, heavySlash)
+
+#include <Esplora.h>   // you need to include the Esplora library
+
+int buttonK = 0;   // variable for reading the pushbutton status
+int buttonP = 0;   // variable for reading the pushbutton status
+int buttonS = 0;   // variable for reading the pushbutton status
+int buttonH = 0;   // variable for reading the pushbutton status
+
+int slider = 0;
+
+void setup() {
+ // nothing to set up
+}
+
+void loop(){
+  // read the state of the pushbutton value:
+  // Esplora.readButton replaces digitalRead()
+  buttonK = Esplora.readButton(SWITCH_1);
+  buttonP = Esplora.readButton(SWITCH_2);
+  buttonS = Esplora.readButton(SWITCH_3);
+  buttonH = Esplora.readButton(SWITCH_4);
+
+  //sloppy way of determining the power of the light
+  slider = Esplora.readSlider() / 4;
+
+  // check if the pushbutton is pressed.
+  // if it is, the buttonState is LOW:
+  if (buttonK == LOW) {     // Button is pushed when LOW, not HIGH
+    // turn LED on:
+    Esplora.writeBlue(slider);  // Esplora.writeBlue() replaces digitalWrite()
+  }
+  else if (buttonP == LOW){
+    Esplora.writeBlue(slider);  // Esplora.writeBlue() replaces digitalWrite()
+    Esplora.writeRed(slider);  // Esplora.writeRed() replaces digitalWrite()
+  }
+  else if (buttonS == LOW){
+    Esplora.writeGreen(slider);  // Esplora.writeGreen() replaces digitalWrite()
+  }
+  else if (buttonH == LOW){
+    Esplora.writeRed(slider);  // Esplora.writeRed() replaces digitalWrite()
+  }
+  else {
+    // turn LED off:
+    Esplora.writeRed(0);  // Esplora.writeRed() replaces digitalWrite()
+    Esplora.writeBlue(0);  // Esplora.writeBlue() replaces digitalWrite()
+    Esplora.writeGreen(0);  // Esplora.writeGreen() replaces digitalWrite()
+  }
+}
